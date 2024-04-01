@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+   
+  <changeSet id="20240401-1" author="kongnuy">
+    <createTable tableName="users" remarks="This table is used to stock users">
+      <column name="ID" type="BIGINT" autoIncrement="true" remarks="The auto increment Id">
+        <constraints  primaryKey="true"  nullable="false"/>
+      </column>
+      <column name="FIRSTNAME" type="VARCHAR(${charlength})" remarks="The user's firstname">
+        <constraints  nullable="false"/>
+      </column>
+      <column name="LASTNAME" type="VARCHAR(${charlength})" remarks="The user's lastname">  
+        <constraints  nullable="false"/>
+      </column>
+      <column name="FCMTOKEN" type="TEXT" remarks="The firebase cloud message token" />
+      <column name="EXTERNALUUID" type="VARCHAR(${charlength})" remarks="The user's uuid in optivac database">  
+        <constraints  nullable="false"/>
+      </column>
+      <column name="PLATFORM" type="VARCHAR(${charlength})" remarks="The user's operating system">  
+        <constraints  nullable="false"/>
+      </column>
+      <column name="ARTICLE" type="BOOLEAN" remarks="Does this user want to receive article notifications">
+        <constraints  nullable="false"/>
+      </column>
+      <column name="BONPLAN" type="BOOLEAN" remarks="Does this user want to receive notification about good plan">
+        <constraints  nullable="false"/>
+      </column>
+      <column name="CARTEPRO" type="BOOLEAN" remarks="Does this user want to receive notifications about the renewal of his pro card">
+        <constraints  nullable="false"/>
+      </column>
+      <column name="RIGHT" type="BOOLEAN" remarks="Does this user want to receive notifications about new right">
+        <constraints  nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+  <changeSet id="20240401-2" author="kongnuy">
+    <loadData 
+      separator=";" 
+      relativeToChangelogFile="false" 
+      encoding="UTF-8" 
+      file="db/data/users.csv" 
+      tableName="users"
+      usePreparedStatements="true"
+    >
+      <column header="FCMTOKEN" name="FCMTOKEN" type="VARCHAR"/>
+    </loadData>
+  </changeSet>
+</databaseChangeLog>
