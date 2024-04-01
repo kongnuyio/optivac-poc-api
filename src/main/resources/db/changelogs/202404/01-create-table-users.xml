@@ -10,6 +10,7 @@
         http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
    
   <changeSet id="20240401-1" author="kongnuy">
+    <validCheckSum>ANY</validCheckSum>
     <createTable tableName="users" remarks="This table is used to stock users">
       <column name="ID" type="BIGINT" autoIncrement="true" remarks="The auto increment Id">
         <constraints  primaryKey="true"  nullable="false"/>
@@ -39,9 +40,11 @@
       <column name="RIGHT" type="BOOLEAN" remarks="Does this user want to receive notifications about new right">
         <constraints  nullable="false"/>
       </column>
+      <column name="ROWINDEX" type="TEXT" remarks="Index of this row" />
     </createTable>
   </changeSet>
   <changeSet id="20240401-2" author="kongnuy">
+    <validCheckSum>ANY</validCheckSum>
     <loadData 
       separator=";" 
       relativeToChangelogFile="false" 
