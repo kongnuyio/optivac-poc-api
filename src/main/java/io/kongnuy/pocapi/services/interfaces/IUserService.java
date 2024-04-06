@@ -53,4 +53,16 @@ public interface IUserService {
    * @see https://google.com
    */
   public User getOneByUuidOrExternalUuid(String uuid, String externalUuid);
+
+  /**
+   * find the user with the provided uuid or external uuid.
+   * 
+   * @param uuid the unique identifier
+   * @param externalUuid the external uuid
+   * 
+   * @return the user
+   * 
+   * @see https://google.com
+   */
+  public boolean removeOneByUuidOrExternalUuid(String uuid, String externalUuid);
 }

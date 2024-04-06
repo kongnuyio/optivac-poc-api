@@ -45,4 +45,11 @@ public class UserService implements IUserService {
     return user.get();
   }
 
+  @Override
+  public boolean removeOneByUuidOrExternalUuid(String uuid, String externalUuid) {
+    var user = this.getOneByUuidOrExternalUuid(uuid, externalUuid);
+    userRepository.delete(user);
+    return true;
+  }
+
 }
