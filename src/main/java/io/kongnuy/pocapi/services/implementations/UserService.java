@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import io.kongnuy.pocapi.dtos.in.user.UserCreateIn;
 import io.kongnuy.pocapi.dtos.in.user.UserUpdateIn;
 import io.kongnuy.pocapi.dtos.out.user.UserFullOut;
 import io.kongnuy.pocapi.dtos.out.user.UserStandardOut;
@@ -57,6 +58,13 @@ public class UserService implements IUserService {
   public UserFullOut updateOneByUuidOrExternalUuid(String uuidOrExternalUuid, UserUpdateIn userUpdateIn) {
     var user = this.getOneByUuidOrExternalUuid(uuidOrExternalUuid);
     userMapper.fromUserUpdateIn(userUpdateIn, user);
+    userRepository.save(user);
+    return userMapper.toUserFullOut(user);
+  }
+
+  @Override
+  public UserFullOut create(UserCreateIn userCreateIn) {
+    var user = userMapper.fromUserCreateIn(userCreateIn);
     userRepository.save(user);
     return userMapper.toUserFullOut(user);
   }
