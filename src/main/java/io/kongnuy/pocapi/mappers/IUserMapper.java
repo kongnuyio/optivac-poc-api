@@ -9,7 +9,8 @@ import org.mapstruct.Mapper;
 
 import org.springframework.stereotype.Service;
 
-import io.kongnuy.pocapi.dtos.out.user.UserList;
+import io.kongnuy.pocapi.dtos.out.user.UserFullOut;
+import io.kongnuy.pocapi.dtos.out.user.UserStandardOut;
 import io.kongnuy.pocapi.entities.User;
 
 @Mapper(
@@ -23,7 +24,9 @@ import io.kongnuy.pocapi.entities.User;
 )
 public interface IUserMapper {
   
-  UserList toUserList(User user);
+  UserStandardOut toUserStandardOut(User user);
 
-  List<UserList> toUserList(List<User> user);
+  UserFullOut toUserFullOut(User user);
+
+  List<UserStandardOut> toUserStandardOut(List<User> user);
 }

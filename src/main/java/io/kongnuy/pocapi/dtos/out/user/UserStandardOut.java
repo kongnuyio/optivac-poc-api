@@ -7,12 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserList {
-  protected Long id;
+public class UserStandardOut {
   protected String uuid;
   protected String firstname;
   protected String lastname;
-  protected String fcmToken;
   protected String externalUuid;
   protected String platform;
   protected boolean notifyMeOnNewBlogArticle;

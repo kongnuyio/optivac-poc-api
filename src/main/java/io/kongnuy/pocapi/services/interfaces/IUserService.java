@@ -1,7 +1,10 @@
 package io.kongnuy.pocapi.services.interfaces;
 
 import java.util.List;
-import io.kongnuy.pocapi.dtos.out.user.UserList;
+
+import io.kongnuy.pocapi.dtos.out.user.UserFullOut;
+import io.kongnuy.pocapi.dtos.out.user.UserStandardOut;
+import io.kongnuy.pocapi.entities.User;
 
 /**
  * Classe de gestion des comptes utilisateurs
@@ -21,9 +24,33 @@ public interface IUserService {
    * @param search Filter the result by index (the index is a combination of the
    *               lastname, firstname and email).
    * 
-   * @return La liste des comptes
+   * @return the list of users
    * 
    * @see https://google.com
    */
-  public List<UserList> findAll(Integer limit, Integer page, String search);
+  public List<UserStandardOut> findAll(Integer limit, Integer page, String search);
+
+  /**
+   * find the user with the provided uuid or external uuid.
+   * 
+   * @param uuid the unique identifier
+   * @param externalUuid the external uuid
+   * 
+   * @return the user
+   * 
+   * @see https://google.com
+   */
+  public UserFullOut findOneByUuidOrExternalUuid(String uuid, String externalUuid);
+
+  /**
+   * get the user with the provided uuid or external uuid.
+   * 
+   * @param uuid the unique identifier
+   * @param externalUuid the external uuid
+   * 
+   * @return the user
+   * 
+   * @see https://google.com
+   */
+  public User getOneByUuidOrExternalUuid(String uuid, String externalUuid);
 }

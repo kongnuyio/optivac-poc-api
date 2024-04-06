@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import io.kongnuy.pocapi.dtos.out.user.UserList;
+import io.kongnuy.pocapi.dtos.out.user.UserFullOut;
+import io.kongnuy.pocapi.dtos.out.user.UserStandardOut;
+import io.kongnuy.pocapi.entities.User;
 import io.kongnuy.pocapi.mappers.IUserMapper;
 import io.kongnuy.pocapi.repositories.IUserRepository;
 import io.kongnuy.pocapi.services.interfaces.IUserService;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service("userService")
 public class UserService implements IUserService {
@@ -23,7 +26,23 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public List<UserList> findAll(Integer limit, Integer page, String search) {
-    return userMapper.toUserList(userRepository.findAll());
+  public List<UserStandardOut> findAll(Integer limit, Integer page, String search) {
+    return userMapper.toUserStandardOut(userRepository.findAll());
   }
+
+  @Override
+  public UserFullOut findOneByUuidOrExternalUuid(String uuid, String externalUuid) {
+    return userMapper.toUserFullOut(this.getOneByUuidOrExternalUuid(uuid, externalUuid));
+  }
+
+  @Override
+  public User getOneByUuidOrExternalUuid(String uuid, String externalUuid) {
+    var user = userRepository.findByUuidOrExternalUuid(uuid, externalUuid);
+    if (user.isEmpty()) {
+      throw new EntityNotFoundException();
+    }
+
+    return user.get();
+  }
+
 }
