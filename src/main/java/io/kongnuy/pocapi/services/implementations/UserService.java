@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import io.kongnuy.pocapi.dtos.in.user.UserUpdateIn;
 import io.kongnuy.pocapi.dtos.out.user.UserFullOut;
 import io.kongnuy.pocapi.dtos.out.user.UserStandardOut;
 import io.kongnuy.pocapi.entities.User;
@@ -31,13 +32,13 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public UserFullOut findOneByUuidOrExternalUuid(String uuid, String externalUuid) {
-    return userMapper.toUserFullOut(this.getOneByUuidOrExternalUuid(uuid, externalUuid));
+  public UserFullOut findOneByUuidOrExternalUuid(String uuidOrExternalUuid) {
+    return userMapper.toUserFullOut(this.getOneByUuidOrExternalUuid(uuidOrExternalUuid));
   }
 
   @Override
-  public User getOneByUuidOrExternalUuid(String uuid, String externalUuid) {
-    var user = userRepository.findByUuidOrExternalUuid(uuid, externalUuid);
+  public User getOneByUuidOrExternalUuid(String uuidOrExternalUuid) {
+    var user = userRepository.findByUuidOrExternalUuid(uuidOrExternalUuid, uuidOrExternalUuid);
     if (user.isEmpty()) {
       throw new EntityNotFoundException();
     }
@@ -46,10 +47,18 @@ public class UserService implements IUserService {
   }
 
   @Override
-  public boolean removeOneByUuidOrExternalUuid(String uuid, String externalUuid) {
-    var user = this.getOneByUuidOrExternalUuid(uuid, externalUuid);
+  public boolean removeOneByUuidOrExternalUuid(String uuidOrExternalUuid) {
+    var user = this.getOneByUuidOrExternalUuid(uuidOrExternalUuid);
     userRepository.delete(user);
     return true;
+  }
+
+  @Override
+  public UserFullOut updateOneByUuidOrExternalUuid(String uuidOrExternalUuid, UserUpdateIn userUpdateIn) {
+    var user = this.getOneByUuidOrExternalUuid(uuidOrExternalUuid);
+    userMapper.fromUserUpdateIn(userUpdateIn, user);
+    userRepository.save(user);
+    return userMapper.toUserFullOut(user);
   }
 
 }

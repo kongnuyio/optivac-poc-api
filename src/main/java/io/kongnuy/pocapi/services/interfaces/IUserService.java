@@ -2,6 +2,7 @@ package io.kongnuy.pocapi.services.interfaces;
 
 import java.util.List;
 
+import io.kongnuy.pocapi.dtos.in.user.UserUpdateIn;
 import io.kongnuy.pocapi.dtos.out.user.UserFullOut;
 import io.kongnuy.pocapi.dtos.out.user.UserStandardOut;
 import io.kongnuy.pocapi.entities.User;
@@ -33,36 +34,45 @@ public interface IUserService {
   /**
    * find the user with the provided uuid or external uuid.
    * 
-   * @param uuid the unique identifier
-   * @param externalUuid the external uuid
+   * @param uuidOrExternalUuid the unique identifier or the external uuid
    * 
    * @return the user
    * 
    * @see https://google.com
    */
-  public UserFullOut findOneByUuidOrExternalUuid(String uuid, String externalUuid);
+  public UserFullOut findOneByUuidOrExternalUuid(String uuidOrExternalUuid);
 
   /**
    * get the user with the provided uuid or external uuid.
    * 
-   * @param uuid the unique identifier
-   * @param externalUuid the external uuid
+   * @param uuidOrExternalUuid the unique identifier or the external uuid
    * 
    * @return the user
    * 
    * @see https://google.com
    */
-  public User getOneByUuidOrExternalUuid(String uuid, String externalUuid);
+  public User getOneByUuidOrExternalUuid(String uuidOrExternalUuid);
 
   /**
    * find the user with the provided uuid or external uuid.
    * 
-   * @param uuid the unique identifier
-   * @param externalUuid the external uuid
+   * @param uuidOrExternalUuid the unique identifier or the external uuid
    * 
    * @return the user
    * 
    * @see https://google.com
    */
-  public boolean removeOneByUuidOrExternalUuid(String uuid, String externalUuid);
+  public boolean removeOneByUuidOrExternalUuid(String uuidOrExternalUuid);
+
+   /**
+   * get the user with the provided uuid or external uuid.
+   * 
+   * @param uuidOrExternalUuid the unique identifier or the external uuid
+   * 
+   * @return the user
+   * 
+   * @see https://google.com
+   */
+  public UserFullOut updateOneByUuidOrExternalUuid(String uuidOrExternalUuid, UserUpdateIn userUpdateIn);
+
 }
