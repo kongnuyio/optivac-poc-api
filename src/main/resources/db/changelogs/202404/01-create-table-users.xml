@@ -13,32 +13,35 @@
     <validCheckSum>ANY</validCheckSum>
     <createTable tableName="users" remarks="This table is used to stock users">
       <column name="ID" type="BIGINT" autoIncrement="true" remarks="The auto increment Id">
-        <constraints  primaryKey="true"  nullable="false"/>
+        <constraints  primaryKey="true" primaryKeyName="PK_USERS_ID" nullable="false" />
+      </column>
+       <column name="UUID" type="VARCHAR(${charlength})" remarks="The user's uuid in this database">  
+        <constraints nullable="false" unique="true" uniqueConstraintName="UQ_USERS_UUID" notNullConstraintName="NOT_NULL_USERS_UUID" />
       </column>
       <column name="FIRSTNAME" type="VARCHAR(${charlength})" remarks="The user's firstname">
-        <constraints  nullable="false"/>
+        <constraints nullable="false" notNullConstraintName="NOT_NULL_USERS_FIRSTNAME"/>
       </column>
       <column name="LASTNAME" type="VARCHAR(${charlength})" remarks="The user's lastname">  
-        <constraints  nullable="false"/>
+        <constraints nullable="false" notNullConstraintName="NOT_NULL_USERS_FIRSTNAME" />
       </column>
       <column name="FCMTOKEN" type="TEXT" remarks="The firebase cloud message token" />
       <column name="EXTERNALUUID" type="VARCHAR(${charlength})" remarks="The user's uuid in optivac database">  
-        <constraints  nullable="false"/>
+        <constraints nullable="false" unique="true" uniqueConstraintName="UQ_USERS_EXTERNALUUID" notNullConstraintName="NOT_NULL_USERS_EXTERNALUUID" />
       </column>
       <column name="PLATFORM" type="VARCHAR(${charlength})" remarks="The user's operating system">  
-        <constraints  nullable="false"/>
+        <constraints nullable="false" notNullConstraintName="NOT_NULL_USERS_PLATFORM"/>
       </column>
-      <column name="ARTICLE" type="BOOLEAN" remarks="Does this user want to receive article notifications">
-        <constraints  nullable="false"/>
+      <column name="NOTIFY_ME_ON_NEW_BLOG_ARTICLE" type="BOOLEAN" remarks="Does this user want to receive article notifications">
+        <constraints nullable="false" notNullConstraintName="NOT_NULL_USERS_NOTIFY_ME_ON_NEW_BLOG_ARTICLE"/>
       </column>
-      <column name="BONPLAN" type="BOOLEAN" remarks="Does this user want to receive notification about good plan">
-        <constraints  nullable="false"/>
+      <column name="NOTIFY_ME_ON_NEW_BONPLAN" type="BOOLEAN" remarks="Does this user want to receive notification about good plan">
+        <constraints nullable="false" notNullConstraintName="NOT_NULL_USERS_NOTIFY_ME_ON_NEW_BONPLAN"/>
       </column>
-      <column name="CARTEPRO" type="BOOLEAN" remarks="Does this user want to receive notifications about the renewal of his pro card">
-        <constraints  nullable="false"/>
+      <column name="NOTIFY_ME_ON_CARTEPRO_EXPIRATION" type="BOOLEAN" remarks="Does this user want to receive notifications about the renewal of his pro card">
+        <constraints nullable="false" notNullConstraintName="NOT_NULL_USERS_NOTIFY_ME_ON_CARTEPRO_EXPIRATION"/>
       </column>
-      <column name="RIGHT" type="BOOLEAN" remarks="Does this user want to receive notifications about new right">
-        <constraints  nullable="false"/>
+      <column name="NOTIFY_ME_ON_NEW_RIGHT_ARTICLE" type="BOOLEAN" remarks="Does this user want to receive notifications about new right">
+        <constraints nullable="false" notNullConstraintName="NOT_NULL_USERS_NOTIFY_ME_ON_NEW_RIGHT_ARTICLE"/>
       </column>
       <column name="ROWINDEX" type="TEXT" remarks="Index of this row" />
     </createTable>
@@ -53,6 +56,7 @@
       tableName="users"
       usePreparedStatements="true"
     >
+      <column header="UUID" name="UUID" type="VARCHAR"/>
       <column header="FCMTOKEN" name="FCMTOKEN" type="VARCHAR"/>
     </loadData>
   </changeSet>

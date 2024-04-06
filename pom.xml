@@ -17,6 +17,7 @@
 		<java.version>21</java.version>
     <lombok.version>1.18.30</lombok.version>
     <swagger.version>2.3.0</swagger.version>
+    <mapstruct.version>1.6.0.Beta1</mapstruct.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -51,6 +52,11 @@
       <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
       <version>${swagger.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>${mapstruct.version}</version>
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -64,7 +70,41 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>${mapstruct.version}</version>
+            </path>
+          </annotationProcessorPaths>
+          <!-- due to problem in maven-compiler-plugin, for verbose mode add showWarnings -->
+          <showWarnings>true</showWarnings>
+          <compilerArgs>
+            <arg>
+              -Amapstruct.suppressGeneratorTimestamp=false
+            </arg>
+            <arg>
+              -Amapstruct.suppressGeneratorVersionInfoComment=false
+            </arg>
+            <arg>
+              -Amapstruct.verbose=true
+            </arg>
+            <arg>
+              -Amapstruct.defaultComponentModel=spring
+            </arg>
+            <arg>
+              -Amapstruct.defaultInjectionStrategy=constructor
+            </arg>
+            <arg>
+              -Amapstruct.unmappedTargetPolicy=IGNORE
+            </arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
 		</plugins>
 	</build>
-
 </project>

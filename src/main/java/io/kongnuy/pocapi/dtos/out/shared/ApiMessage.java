@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class ApiMessage {
-  private String code;
-  private String message;
-  private ApiMessageTypes type;
+  protected String code;
+  protected String message;
+  protected ApiMessageTypes type;
 }

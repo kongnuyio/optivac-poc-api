@@ -1,5 +1,7 @@
 package io.kongnuy.pocapi.controllers;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,17 +18,19 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.annotation.Resource;
 
 @RestController
 @RequestMapping(Constants.API_USER_PREFIX)
 @Tag(name = "Users")
 public class UserController {
 
-  @Resource(name = "userService")
-  IUserService userService;
+  private final IUserService userService;
 
-  @GetMapping(path = "", produces = "application/json; charset=UTF-8")
+  public UserController(@Qualifier("userService") final IUserService userService) {
+    this.userService = userService;
+  }
+
+  @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
   @Operation(summary = "Get the list of users that the current user can access/manage.", description = "Whether you are a LazzyConnect Admin or a Company,"
       + "this endpoint can help get the current registered user within your organization.<br/> "
       + "When calling this API endpoint, you can fill in the following parameters : <br/><ul>"

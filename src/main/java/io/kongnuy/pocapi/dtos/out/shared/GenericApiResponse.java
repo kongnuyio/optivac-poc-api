@@ -8,9 +8,9 @@ import lombok.Data;
 
 @Data
 public class GenericApiResponse<T> {
-  private T data;
-  private ApiResponseStatus status;
-  private List<ApiMessage> messages;
+  protected T data;
+  protected ApiResponseStatus status;
+  protected List<ApiMessage> messages;
 
   public GenericApiResponse(T data) {
     this.data = data;
